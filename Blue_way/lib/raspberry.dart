@@ -35,7 +35,7 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
     flutterBlue.scanResults.listen((results) {
       for (ScanResult result in results) {
         if (result.device.name.isNotEmpty &&
-            result.device.name == 'اسم الراسبيرى باى') {
+            result.device.name == "Menna's M31") {
           connectToDevice(result.device);
           break;
         }
