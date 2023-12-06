@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
@@ -22,23 +21,18 @@ class BluetoothScreen extends StatefulWidget {
 }
 
 class _BluetoothScreenState extends State<BluetoothScreen> {
-  final FlutterBlue flutterBlue = FlutterBlue.instance;
-  BluetoothDevice? _connectedDevice;
     @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    void connectToDevice() async {
-      var response = await http.get(Uri.https('http://192.168.1.7:5000/'));
-      if (response.statusCode == 200) {
-      var jsonResponse =
-          convert.jsonDecode(response.body) as Map<String, dynamic>;
-      var itemCount = jsonResponse['totalItems'];
-      print('Number of books about http: $itemCount.');
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
     }
-  }
+
+    void _connectToDevice() async {
+      var response = await http.get(Uri.parse('http://192.168.1.4:5000/'));
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+      }
   }
 
   @override
@@ -53,17 +47,22 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
           children: [
             ElevatedButton(
               onPressed: ()
-                async {
-              var response = await http.get(Uri.parse('http://192.168.1.7:5000/'));
+              async { //while(true){
+              var response = await http.get(Uri.parse('http://192.168.1.4:5000/'));
               if (response.statusCode == 200) {
               print(response.body);
             } else {
               print('Request failed with status: ${response.statusCode}.');
             }
+              //}
             },
               child: Text('Connect to Device'),
             ),
             SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: _connectToDevice, child: Text('Connect to Device Second way'),
+            ),
+            Text('Null l7d ma n4oflha sa7b'),
           ],
         ),
       ),
