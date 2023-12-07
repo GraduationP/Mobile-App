@@ -1,6 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
 
 void main() {
   runApp(MyApp());
@@ -21,18 +21,21 @@ class BluetoothScreen extends StatefulWidget {
 }
 
 class _BluetoothScreenState extends State<BluetoothScreen> {
-    @override
+  @override
   void initState() {
     super.initState();
-    }
+  }
 
-    void _connectToDevice() async {
-      var response = await http.get(Uri.parse('http://192.168.1.4:5000/'));
-      if (response.statusCode == 200) {
-        print(response.body);
-      } else {
-        print('Request failed with status: ${response.statusCode}.');
-      }
+  var j = 'kkkk';
+  void _connectToDevice() async {
+    var response = await http.get(Uri.parse('http://10.0.0.1:4000/send-data'));
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      j = jsonData;
+      print(jsonData);
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
   }
 
   @override
@@ -45,24 +48,13 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: ()
-              async { //while(true){
-              var response = await http.get(Uri.parse('http://192.168.1.4:5000/'));
-              if (response.statusCode == 200) {
-              print(response.body);
-            } else {
-              print('Request failed with status: ${response.statusCode}.');
-            }
-              //}
-            },
-              child: Text('Connect to Device'),
-            ),
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: _connectToDevice, child: Text('Connect to Device Second way'),
+              onPressed: _connectToDevice,
+              child: Text('Connect to Device Second way'),
             ),
             Text('Null l7d ma n4oflha sa7b'),
+            Text(j ?? 'null'),
           ],
         ),
       ),
