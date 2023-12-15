@@ -24,7 +24,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
   List profileData = [];
   List carData = [];
   List carInfo = [];
-  String str = '';
+  String str = 'Testing variable: HI!';
   @override
   void initState() {
     super.initState();
@@ -33,7 +33,6 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final jsonSendData = json.decode(response.body);
-      str = jsonSendData.toString();
       if (page == 'profile'){
         profileData.addAll(jsonSendData);}
       else if (page == 'carData'){
