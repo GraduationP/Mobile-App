@@ -55,7 +55,7 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
     List<BluetoothService> services = await device.discoverServices();
     for (BluetoothService service in services) {
       for (BluetoothCharacteristic characteristic in service.characteristics) {
-        if (characteristic.uuid.toString() == 'UUID ال') {
+        if (characteristic.uuid.toString() == '80:86:D9:D9:93:9C') {
           setState(() {
             targetCharacteristic = characteristic;
           });
