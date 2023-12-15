@@ -21,15 +21,20 @@ class BluetoothScreen extends StatefulWidget {
 }
 
 class _BluetoothScreenState extends State<BluetoothScreen> {
+  List data = [];
+  String str = '';
   @override
   void initState() {
     super.initState();
   }
-
   void _connectToDevice(url) async {
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final jsonSendData = json.decode(response.body);
+      str = jsonSendData.toString()
+      data.addAll(jsonSendData);
+      setState(() {
+      });
       print(jsonSendData);
     } else {
       print('Request failed with status: ${response.statusCode}.');
@@ -43,8 +48,7 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
         title: const Text('Bluetooth Connection'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
           children: [
             const SizedBox(height: 16.0),
             ElevatedButton(
@@ -67,6 +71,8 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
               },
               child: const Text('Connect to car data'),
             ),
+            Text(str),
+            ...List.generate(data.length, (index) => Card(child: ListTile(title: Text("${data[index]["name"]}")),))
           ],
         ),
       ),
