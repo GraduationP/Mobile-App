@@ -82,9 +82,12 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
             ),
             Text(str),
             SizedBox(height: 5.0),
-            ...List.generate(profileData.length, (index) => Card(child: ListTile(title: Text("${profileData[index]["name"]}")),)),
-            ...List.generate(carData.length, (index) => Card(child: ListTile(title: Text("${carData[index]["speed"]}")),)),
-            ...List.generate(carInfo.length, (index) => Card(child: ListTile(title: Text("${carInfo[index]["color"]}")),))
+            ...List.generate(profileData.length, (index) => Card(child: ListTile(title: Text("${profileData[index]["name"]}"),
+              subtitle: Text("${profileData[index]["address"]}"),),)),
+            ...List.generate(carData.length, (index) => Card(child: ListTile(title: Text("${carData[index]["speed"]}"),
+                subtitle: Text("${carData[index]["charge"]}")),)),
+            ...List.generate(carInfo.length, (index) => Card(child: ListTile(title: Text("${carInfo[index]["brand"]}"),
+                subtitle: Text("${carInfo[index]["color"]}")),))
           ],
         ),
       ),
