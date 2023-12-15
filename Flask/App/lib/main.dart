@@ -10,17 +10,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BluetoothScreen(),
+      home: ConnectionScreen(),
     );
   }
 }
 
-class BluetoothScreen extends StatefulWidget {
+class ConnectionScreen extends StatefulWidget {
   @override
-  _BluetoothScreenState createState() => _BluetoothScreenState();
+  _ConnectionScreenState createState() => _ConnectionScreenState();
 }
 
-class _BluetoothScreenState extends State<BluetoothScreen> {
+class _ConnectionScreenState extends State<ConnectionScreen> {
   List profileData = [];
   List carData = [];
   List carInfo = [];
@@ -54,7 +54,7 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bluetooth Connection'),
+        title: const Text('Server Connection'),
       ),
       body: Center(
         child: ListView(
