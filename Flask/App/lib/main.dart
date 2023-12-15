@@ -25,6 +25,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
   List carData = [];
   List carInfo = [];
   String str = 'Testing variable: HI!';
+  int carId = 0;
   @override
   void initState() {
     super.initState();
@@ -40,6 +41,9 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
       }
       else if (page == 'carInfo'){
         carInfo.addAll(jsonSendData);
+      }
+      else if (page == 'carId'){
+        carId = jsonSendData;
       }
       setState(() {
       });
@@ -79,7 +83,16 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
               },
               child: const Text('Connect to car data'),
             ),
+            const SizedBox(height: 5.0),
+            ElevatedButton(
+              onPressed: () {
+                _connectToDevice('http://10.0.0.1:4000/car_id', 'carId');
+              },
+              child: const Text('Connect to car data'),
+            ),
             Text(str),
+            SizedBox(height: 5.0),
+            Text(carId.toString()),
             SizedBox(height: 5.0),
             ...List.generate(profileData.length, (index) => Card(child: ListTile(title: Text("${profileData[index]["name"]}"),
               subtitle: Text("${profileData[index]["address"]}"),),)),
