@@ -21,18 +21,27 @@ class BluetoothScreen extends StatefulWidget {
 }
 
 class _BluetoothScreenState extends State<BluetoothScreen> {
-  List data = [];
+  List profileData = [];
+  List carData = [];
+  List carInfo = [];
   String str = '';
   @override
   void initState() {
     super.initState();
   }
-  void _connectToDevice(url) async {
+  void _connectToDevice(url, page) async {
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final jsonSendData = json.decode(response.body);
-      str = jsonSendData.toString()
-      data.addAll(jsonSendData);
+      str = jsonSendData.toString();
+      if (page == 'profile'){
+        profileData.addAll(jsonSendData);}
+      else if (page == 'carData'){
+        carData.addAll(jsonSendData);
+      }
+      else if (page == 'carInfo'){
+        carInfo.addAll(jsonSendData);
+      }
       setState(() {
       });
       print(jsonSendData);
@@ -50,29 +59,32 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
       body: Center(
         child: ListView(
           children: [
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 5.0),
             ElevatedButton(
               onPressed: () {
-                _connectToDevice('http://10.0.0.1:4000/profile_info');
+                _connectToDevice('http://10.0.0.1:4000/profile_info', 'profile');
               },
               child: const Text('Connect to profile info'),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 5.0),
             ElevatedButton(
               onPressed: () {
-                _connectToDevice('http://10.0.0.1:4000/car_info');
+                _connectToDevice('http://10.0.0.1:4000/car_info', 'carInfo');
               },
               child: const Text('Connect to car info'),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 5.0),
             ElevatedButton(
               onPressed: () {
-                _connectToDevice('http://10.0.0.1:4000/car_data');
+                _connectToDevice('http://10.0.0.1:4000/car_data', 'carData');
               },
               child: const Text('Connect to car data'),
             ),
             Text(str),
-            ...List.generate(data.length, (index) => Card(child: ListTile(title: Text("${data[index]["name"]}")),))
+            SizedBox(height: 5.0),
+            ...List.generate(profileData.length, (index) => Card(child: ListTile(title: Text("${profileData[index]["name"]}")),)),
+            ...List.generate(carData.length, (index) => Card(child: ListTile(title: Text("${carData[index]["speed"]}")),)),
+            ...List.generate(carInfo.length, (index) => Card(child: ListTile(title: Text("${carInfo[index]["color"]}")),))
           ],
         ),
       ),
