@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "963799477217",
+    "firebase_url": "https://saferoute-d22b7-default-rtdb.firebaseio.com",
+    "project_id": "saferoute-d22b7",
+    "storage_bucket": "saferoute-d22b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963799477217:android:a853aea40a43de5cdc00a0",
+        "android_client_info": {
+          "package_name": "com.example.authentication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpJ8t4XiohFpyGEcQhheWpJfVm-OfYhbI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
