@@ -1,10 +1,23 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(MyApp());
+Future<void> main() async {
+WidgetsFlutterBinding.ensureInitialized();
+await Firebase.initializeApp();
+
+// Ideal time to initialize
+await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+//...
 }
+/*void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+  );
+  runApp(MyApp());
+}*/
 
 class MyApp extends StatelessWidget {
   @override
@@ -24,6 +37,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
   List profileData = [];
   List carData = [];
   List carInfo = [];
+  String _email='', _password='';
   String str = 'Testing variable: HI!';
   int carId = 0;
   @override
@@ -62,6 +76,22 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
       body: Center(
         child: ListView(
           children: [
+            TextField(
+          decoration: InputDecoration(hintText: "Enter Your Email"), 
+          onChanged: (value){
+            setState((){
+            this._email = value;
+          });},
+        ),
+        TextField(
+          decoration: InputDecoration(hintText: "Enter Your Password"), 
+          onChanged: (value){
+            setState((){
+            this._password = value;
+          });},
+        ),
+        ElevatedButton(onPressed: (){}, child: Text('Login')),
+        TextButton(onPressed: (){}, child: Text('Register')),
             const SizedBox(height: 5.0),
             ElevatedButton(
               onPressed: () {
@@ -94,6 +124,8 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
             SizedBox(height: 5.0),
             Text(carId.toString()),
             SizedBox(height: 5.0),
+            
+
             ...List.generate(profileData.length, (index) => Card(child: ListTile(title: Text("${profileData[index]["name"]}"),
               subtitle: Text("${profileData[index]["address"]}"),),)),
             ...List.generate(carData.length, (index) => Card(child: ListTile(title: Text("${carData[index]["speed"]}"),

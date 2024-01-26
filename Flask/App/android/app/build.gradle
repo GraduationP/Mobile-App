@@ -1,7 +1,8 @@
 plugins {
-    id "com.android.application"
+    id("com.android.application", version: '7.3.0')
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()
@@ -64,4 +65,28 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+
+    // Add the dependency for the Firebase SDK for Google Analytics
+    //implementation("com.google.firebase:firebase-analytics")
+
+    // Import the Firebase BoM
+    //implementation platform('com.google.firebase:firebase-bom:30.2.0')
+
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-auth")
+
+    // Add the dependencies for any other desired Firebase products
+// https://firebase.google.com/docs/android/setup#available-libraries
+}
+apply plugin: 'com.android.application'
+// Add this line
+apply plugin: 'com.google.gms.google-services'
