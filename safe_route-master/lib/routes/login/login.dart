@@ -112,8 +112,8 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+  var carId = 0;
   void login() async {
-    var carId = 0;
     try {
       var response = await http.get(Uri.parse('http://10.0.0.1:4000/car_id'));
       if (response.statusCode == 200) {
