@@ -126,6 +126,7 @@ class _RegisterState extends State<Register> {
 
   void registerUser() async {
     try {
+      
       var response = await http.get(Uri.parse('http://10.0.0.1:4000/car_info'));
       if (response.statusCode == 200) {
         final jsonSendData = json.decode(response.body);
@@ -158,7 +159,7 @@ class _RegisterState extends State<Register> {
             dialogTitle: "Wrong Connection",
             message: "Can't connect to Raspberry");
       }
-
+      
       showLoading();
       UserCredential credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);

@@ -1,5 +1,9 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:kdgaugeview/kdgaugeview.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../utils/app_colors.dart';
 
@@ -9,6 +13,31 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
+  late Timer timer;
+
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) => connect());
+  }
+
+  void connect() {
+    setState(() async {
+      var response = await http.get(Uri.parse('http://10.0.0.1:4000/car_data'));
+      if (response.statusCode == 200) {
+        final jsonSendData = json.decode(response.body);
+        // data transfer
+        setState(() {
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return
