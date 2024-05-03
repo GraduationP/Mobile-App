@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         Login.routeName:(_)=>Login(),
         Register.routeName:(_)=>Register(),
       },
-      initialRoute: Login.routeName,
+      initialRoute: Home.routeName,
       );
   }
 }
